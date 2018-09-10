@@ -334,7 +334,11 @@ public class SyntheticBundleInstaller {
 
     private static void addFileToArchive(Bundle bundle, String bundlePath, String fileInBundle,
             JarOutputStream jarOutputStream) throws IOException {
-        String filePath = bundlePath + "/" + fileInBundle;
+        
+        if ( bundlePath.endsWith("/") )
+                bundlePath += "/";
+        
+        String filePath = bundlePath + fileInBundle;
         URL resource = bundle.getResource(filePath);
         if (resource == null) {
             return;
@@ -386,7 +390,12 @@ public class SyntheticBundleInstaller {
     }
 
     private static Manifest getManifest(Bundle bundle, String bundlePath) throws IOException {
-        String filePath = bundlePath + "/" + "META-INF/MANIFEST.MF";
+        
+        if ( bundlePath.endsWith("/") )
+                bundlePath += "/";
+        
+        String filePath = bundlePath + "META-INF/MANIFEST.MF";
+        
         URL resource = bundle.getResource(filePath);
         if (resource == null) {
             return null;
